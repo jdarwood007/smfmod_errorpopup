@@ -300,7 +300,6 @@ class ErrorPopup
 	*/
 	public static function hook_redirect(&$setLocation, &$refresh, &$permanent): void
 	{
-	///https://dev.sleepycode.com/smf21mod/index.php?action=admin;area=logs;sa=errorlog;start=0;ajax
 		// We are on a error log action such as delete.
 		if (
 			isset($_REQUEST['action'], $_REQUEST['area'], $_REQUEST['sa'], $_REQUEST['ajax'])
