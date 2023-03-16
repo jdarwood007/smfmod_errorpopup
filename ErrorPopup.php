@@ -30,28 +30,15 @@ class ErrorPopup
 		if (empty($context['user']['is_admin']))
 			return;
 
-		/* SMF calls this is in setupMenuContext
-			var user_menus = new smc_PopupMenu();
-
-			This is the pure Javasript logic.
+		// We are loaded via SSI, we can fake it.
+		if (SMF == 'SSI')
 			addInlineJavaScript('
-		orgErrorLog = document.querySelector(\'li.button_admin ul a[href*="errorlog"]\');
-		if (typeof orgErrorLog !== "undefined" && orgErrorLog !== null)
-		{
-			errorLI = orgErrorLog.parentElement.outerHTML;
-			errorLI += \'<div id="error_menu" class="top_menu scrollable" style="width: 90vw; max-width: 1200px;"></div>\';
+			var errorLI = \'<li class=""><a href="' . $scripturl . '?action=admin;area=logs;sa=errorlog;desc">' . $txt['errorlog'] . ' <span class="amt">' . ($context['num_errors'] ?? 0) . '</span></a></li>\';');
+		else
+			addInlineJavaScript('
+			var errorLI = $("li.button_admin ul").find(\'a[href*="errorlog"]\').parent().prop("outerHTML");', true);
 
-			topInfo = document.querySelector(\'ul#top_info\');
-			topInfo.innerHTML += errorLI;
-
-			document.querySelector(\'ul#top_info a[href*="errorlog"]\').setAttribute("id", "error_menu_top");
-
-			user_menus.add("error", "' . $scripturl . '?action=admin;area=logs;sa=errorlog");
-		}', true);
-		*/
-		addInlineJavaScript('
-
-			var errorLI = $("li.button_admin ul").find(\'a[href*="errorlog"]\').parent().prop("outerHTML");
+			addInlineJavaScript('
 			errorLI += \'<div id="error_menu" class="top_menu scrollable" style="width: 90vw; max-width: 1200px;"></div>\';
 			$("ul#top_info").append(errorLI);
 			$("ul#top_info").find(\'a[href*="errorlog"]\').attr("id", "error_menu_top");
