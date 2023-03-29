@@ -41,7 +41,7 @@ class ErrorPopup
 			addInlineJavaScript('
 			errorLI += \'<div id="error_menu" class="top_menu scrollable" style="width: 90vw; max-width: 1200px;"></div>\';
 			$("ul#top_info").append(errorLI);
-			$("ul#top_info").find(\'a[href*="errorlog"]\').attr("id", "error_menu_top");
+			$("ul#top_info").find(\'a[href*="errorlog"]\').attr("id", "error_menu_top").wrapInner("<span class=\"textmenu\"></span>").prepend("<span class=\"main_icons logs\"></span>");
 			user_menus.add("error", "' . $scripturl . '?action=admin;area=logs;sa=errorlog");
 
 			function tryUpdateErrorCounter(xhr) {
@@ -57,6 +57,11 @@ class ErrorPopup
 		// Fixes a minor bug where the content isn't sized right.
 		addInlineCss('
 			div#error_menu .half_content { width: 49%;}
+			#error_menu_top .main_icons {display: none;}
+			@media (max-width: 855px) {
+				#error_menu_top .main_icons {display: inline-block;}
+				#error_menu_top .textmenu {display: none;}
+			}
 		');
 
 		// Fix the admin login prompt to work.
