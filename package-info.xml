@@ -2,7 +2,7 @@
 <package-info xmlns="http://www.simplemachines.org/xml/package-info" xmlns:smf="http://www.simplemachines.org/">
 	<id>sleepy:errorpup</id>
 	<name>Error Log Popup</name>
-	<version>1.1</version>
+	<version>1.2</version>
 	<type>modification</type>
 
 	<install for="SMF 2.1.*">
@@ -22,7 +22,7 @@
 		<remove-file name="$sourcedir/ErrorPopup.php" />
 	</uninstall>
 
-	<upgrade from="1.0" for="2.1.*">
+	<upgrade from="1.0-1.1" for="2.1.*">
 		<require-file name="ErrorPopup.php" destination="$sourcedir" />
 	</upgrade>
 
