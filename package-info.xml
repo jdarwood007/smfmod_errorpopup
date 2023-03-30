@@ -26,4 +26,10 @@
 		<require-file name="ErrorPopup.php" destination="$sourcedir" />
 	</upgrade>
 
+	<devtools>
+		<packagename>{CUSTOMIZATION-NAME}_{VERSION-}</packagename>
+		<exclusion>.git</exclusion>
+		<exclusion>.scrutinizer.yml</exclusion>
+		<exclusion>screenshots</exclusion>
+	</devtools>
 </package-info>

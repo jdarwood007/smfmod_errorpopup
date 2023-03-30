@@ -19,7 +19,7 @@ class ErrorPopup
 	*/
 	public static function hook_current_action(): void
 	{
-		global $context, $scripturl;
+		global $context, $scripturl, $txt;
 		static $calledOnce = false;
 
 		if ($calledOnce)
