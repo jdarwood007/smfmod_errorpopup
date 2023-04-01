@@ -6,7 +6,7 @@
  * @author SleePy <sleepy @ simplemachines (dot) org>
  * @copyright 2022
  * @license 3-Clause BSD https://opensource.org/licenses/BSD-3-Clause
- * @version 1.0
+ * @version 1.1
  */
 class ErrorPopup
 {
@@ -43,6 +43,7 @@ class ErrorPopup
 			$("ul#top_info").append(errorLI);
 			$("ul#top_info").find(\'a[href*="errorlog"]\').attr("id", "error_menu_top").wrapInner("<span class=\"textmenu\"></span>").prepend("<span class=\"main_icons logs\"></span>");
 			user_menus.add("error", "' . $scripturl . '?action=admin;area=logs;sa=errorlog");
+			$("a#error_menu_top span.amt").detach().appendTo("a#error_menu_top");
 
 			function tryUpdateErrorCounter(xhr) {
 				var newErrorCount = xhr.getResponseHeader("x-smf-errorlogcount");
