@@ -22,21 +22,24 @@ class ErrorPopup
 		global $context, $scripturl, $txt;
 		static $calledOnce = false;
 
-		if ($calledOnce)
+		if ($calledOnce) {
 			return;
+		}
 		$calledOnce = true;
 
 		// Don't bother with non admins.
-		if (empty($context['user']['is_admin']))
+		if (empty($context['user']['is_admin'])) {
 			return;
+		}
 
 		// We are loaded via SSI, we can fake it.
-		if (SMF == 'SSI')
+		if (SMF == 'SSI') {
 			addInlineJavaScript('
 			var errorLI = \'<li class=""><a href="' . $scripturl . '?action=admin;area=logs;sa=errorlog;desc">' . $txt['errorlog'] . ' <span class="amt">' . ($context['num_errors'] ?? 0) . '</span></a></li>\';');
-		else
+		} else {
 			addInlineJavaScript('
 			var errorLI = $("li.button_admin ul").find(\'a[href*="errorlog"]\').parent().prop("outerHTML");', true);
+		}
 
 			addInlineJavaScript('
 			errorLI += \'<div id="error_menu" class="top_menu scrollable" style="width: 90vw; max-width: 1200px;"></div>\';
@@ -242,24 +245,26 @@ class ErrorPopup
 		global $context, $db_show_debug, $smcFunc;
 
 		// Not a AJAX request.
-		if (!isset($_REQUEST['ajax']))
+		if (!isset($_REQUEST['ajax'])) {
 			return;
+		}
 
 		// Strip away layers and remove debugger.
-		$context['template_layers'] = array();
+		$context['template_layers'] = [];
 		$db_show_debug = false;
 
 		// Sneak a header in here that we can use to update the counter.
-		if (!headers_sent())
-		{
-			$result = $smcFunc['db_query']('', '
+		if (!headers_sent()) {
+			$result = $smcFunc['db_query'](
+				'',
+				'
 				SELECT COUNT(*)
 				FROM {db_prefix}log_errors',
-				[]
+				[],
 			);
-			list ($num_errors) = $smcFunc['db_fetch_row']($result);
+			list($num_errors) = $smcFunc['db_fetch_row']($result);
 			$smcFunc['db_free_result']($result);
-		
+
 			header('x-smf-errorlogcount: ' . $num_errors);
 		}
 	}
@@ -278,11 +283,12 @@ class ErrorPopup
 			!isset($_REQUEST['ajax'], $_REQUEST['action'], $_REQUEST['area'])
 			|| $_REQUEST['action'] != 'admin'
 			|| $_REQUEST['area'] != 'logs'
-		)
+		) {
 			return;
+		}
 
 		// Strip away layers and remove debugger.
-		$context['template_layers'] = array();
+		$context['template_layers'] = [];
 		$db_show_debug = false;
 	}
 
@@ -301,9 +307,10 @@ class ErrorPopup
 			&& (
 				isset($_POST['delall'])
 				|| isset($_POST['delete'])
-			) 
-		)
+			)
+		) {
 			$setLocation .= ';ajax';
+		}
 	}
 }
 
@@ -311,10 +318,11 @@ class ErrorPopup
  * This is a special loader function designed to make it easy to have this function without hooks for mod testing.
  * You need to call this file in something very early in SMF, before reloadSettings.php is called
 */
-if (!defined('SMF_INTEGRATION_SETTINGS'))
+if (!defined('SMF_INTEGRATION_SETTINGS')) {
 	define('SMF_INTEGRATION_SETTINGS', json_encode([
 		'integrate_current_action' => 'ErrorPopup::hook_current_action',
 		'integrate_manage_logs' => 'ErrorPopup::hook_manage_logs',
 		'integrate_validateSession' => 'ErrorPopup::hook_validateSession',
 		'integrate_redirect' => 'ErrorPopup::hook_redirect',
 	]));
+}

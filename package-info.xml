@@ -2,12 +2,12 @@
 <package-info xmlns="http://www.simplemachines.org/xml/package-info" xmlns:smf="http://www.simplemachines.org/">
 	<id>sleepy:errorpup</id>
 	<name>Error Log Popup</name>
-	<version>1.3</version>
+	<version>1.4</version>
 	<type>modification</type>
 
 	<install for="SMF 2.1.*">
 		<readme>README.txt</readme>
-		<require-file name="ErrorPopup.php" destination="$sourcedir" />
+		<require-file name="SMF2.1/ErrorPopup.php" destination="$sourcedir" />
 		<hook hook="integrate_current_action" function="ErrorPopup::hook_current_action" file="$sourcedir/ErrorPopup.php" />
 		<hook hook="integrate_manage_logs" function="ErrorPopup::hook_manage_logs" file="$sourcedir/ErrorPopup.php" />
 		<hook hook="integrate_validateSession" function="ErrorPopup::hook_validateSession" file="$sourcedir/ErrorPopup.php" />
@@ -22,9 +22,26 @@
 		<remove-file name="$sourcedir/ErrorPopup.php" />
 	</uninstall>
 
-	<upgrade from="1.0-1.2" for="2.1.*">
-		<require-file name="ErrorPopup.php" destination="$sourcedir" />
+	<upgrade from="1.0-1.3" for="2.1.*">
+		<require-file name="SMF2.1/ErrorPopup.php" destination="$sourcedir" />
 	</upgrade>
+
+	<install for="SMF 3.0 Alpha 1">
+		<readme>README.txt</readme>
+		<require-file name="SMF3.0/ErrorPopup.php" destination="$sourcedir" />
+		<hook hook="integrate_current_action" function="ErrorPopup::hook_current_action" file="$sourcedir/ErrorPopup.php" />
+		<hook hook="integrate_manage_logs" function="ErrorPopup::hook_manage_logs" file="$sourcedir/ErrorPopup.php" />
+		<hook hook="integrate_validateSession" function="ErrorPopup::hook_validateSession" file="$sourcedir/ErrorPopup.php" />
+		<hook hook="integrate_redirect" function="ErrorPopup::hook_redirect" file="$sourcedir/ErrorPopup.php" />
+	</install>
+	
+	<uninstall for="SMF 3.0 Alpha 1">
+		<hook reverse="true" hook="integrate_current_action" function="ErrorPopup::hook_current_action" file="$sourcedir/ErrorPopup.php" />
+		<hook reverse="true" hook="integrate_manage_logs" function="ErrorPopup::hook_manage_logs" file="$sourcedir/ErrorPopup.php" />
+		<hook reverse="true" hook="integrate_validateSession" function="ErrorPopup::hook_validateSession" file="$sourcedir/ErrorPopup.php" />
+		<hook reverse="true" hook="integrate_redirect" function="ErrorPopup::hook_redirect" file="$sourcedir/ErrorPopup.php" />
+		<remove-file name="$sourcedir/ErrorPopup.php" />
+	</uninstall>
 
 	<devtools>
 		<packagename>{CUSTOMIZATION-NAME}_{VERSION-}</packagename>
