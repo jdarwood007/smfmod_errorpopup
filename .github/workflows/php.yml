@@ -45,3 +45,6 @@ jobs:
     steps:
     - name: luminsports-php-cs-fixer
       uses: luminsports/github-action-php-cs-fixer@main
+      with:
+        php-cs-fixer-version: "v3.46.0"
+        use-built-in-rules: false
