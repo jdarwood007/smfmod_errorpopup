@@ -10,7 +10,7 @@
 
 #namespace SMF\Mod\ErrorPopup;
 
-use SMF\COnfig;
+use SMF\Config;
 use SMF\Db\DatabaseApi as Db;
 use SMF\Lang;
 use SMF\Theme;
