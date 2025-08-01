@@ -53,7 +53,7 @@ class ErrorPopup
 			errorLI += \'<div id="error_menu" class="top_menu scrollable" style="width: 90vw; max-width: 1200px;"></div>\';
 			$("ul#top_info").append(errorLI);
 			$("ul#top_info").find(\'a[href*="errorlog"]\').attr("id", "error_menu_top").wrapInner("<span class=\"textmenu\"></span>").prepend("<span class=\"main_icons logs\"></span>");
-			user_menus.add("error", "' . Config::$scripturl . '?action=admin;area=logs;sa=errorlog");
+			user_menus.add("error", "' . Config::$scripturl . '?action=admin;area=logs;sa=errorlog;desc");
 			$("a#error_menu_top span.amt").detach().appendTo("a#error_menu_top");
 
 			function tryUpdateErrorCounter(xhr) {
